@@ -1,0 +1,1 @@
+# service-worker-skip-no-op-fetch-handler
