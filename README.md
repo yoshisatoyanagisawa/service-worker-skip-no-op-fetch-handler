@@ -69,7 +69,7 @@ https://w3c.github.io/ServiceWorker/#should-skip-event)).  This option extends t
 #### Option 2: Updates are checked every time when the service worker starts
 
 This option allows the update every time the service worker starts.  The option slightly relaxes the limitation compared to Option 1.
-Unlike Option 1, code like `onfetch = Math.round(Math.random())?()=>{}:console.log(“hello”)` can move from one to the other because the
+Unlike Option 1, code like `onfetch = Math.round(Math.random()) ? ()=>{} : ()=>console.log("hello")` can move from one to the other because the
 service worker starts asynchronously.
 
 **Pros**
@@ -104,7 +104,7 @@ Considering the implementation complexity, Chromium is currently exploring Optio
 
 Yes.  Assume that a service worker script is like:
 
-```
+```js
 fetch("https://example.com/beacon");
 onfetch = () => {};
 ```
@@ -117,13 +117,13 @@ may see that in a debugger.
 
 Assume, you write a following service worker script:
 
-```
+```js
 onfetch = () => {};
 
 setTimeout(() => {
-onfetch = (event) => {
-event.respondWith(new Response('hello'));
-}
+  onfetch = (event) => {
+    event.respondWith(new Response('hello'));
+  }
 }, 1)
 ```
 
